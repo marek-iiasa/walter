@@ -1,0 +1,134 @@
+Notes on conda, based on ..../GitHub/jonas/pywrksp/docs/notes.txt
+
+Download Anaconda from: https://www.anaconda.com/download
+select macOS, python 3.11, Graphical installer
+Anaconda doc: https://docs.anaconda.com/free/anaconda/install/mac-os/
+conda doc: https://docs.conda.io/projects/conda/en/latest/user-guide/index.html
+
+After installation start with using conda, as suggested below.
+
+conda --------------------------------------------
+Interaction through the cmd-line (terminal)
+Lines that start with the $ are actual (but without $) exec-commands
+
+Configure conda's priority channel (recommended); it modifies ~/.condarc)
+$ conda config --prepend channels conda-forge
+
+Update the conda base:
+$ conda update --all
+$ conda update -d --all
+the second line (-d option) is a dry run (i.e., only shows what would be done
+without -d option)
+
+For actual work it is recommended to create and use conda environments.
+Such env can be used not only by python/pycharm but also by many other apps.
+All apps/libs/packages are installed in a selected env. As long as there is no
+conflict between versions of the installed elements, one env can be used for
+many projects.
+
+To create env with a specific version of python run:
+$ conda create --name pyo11 -c conda-forge python=3.11
+other names can be used instead of pyo11; preferably a name should be easily
+associated with a python version (pyo11) and a set of py-projects that require
+diverse versions of packages.
+
+To start working in an env, e.g., pyo11, run:
+$ conda activate pyo11
+
+To list all created env:
+$ conda info --env
+
+If you wamt to leave the env, run:
+$ conda deactivate
+
+After an env is activated, the prompt should show it. E.g,:
+(your prompt will be different; it depends on the shell, set-up, usr-name, etc)
+Ba4:~ marek$ conda activate pyo11
+(pyo11) Ba4:~ marek$
+
+To list packages available in an env run:
+$ conda list
+(a newly created env may have only few packages)
+
+Check, if python was installed by:
+$ python --version
+
+One should periodically (say, twice a month) update each used env (after
+activating it); in particular, this should be done before installing new packages:
+$ conda update --all
+conda takes care to update packages (and to install those needed) to the versions
+that are compatible.
+
+New packages are installed by:
+$conda install xxx
+where xxx is/are the name/names of packages to be installed.
+The below will install package you will sooner or later need (some might be
+installed by anaconda or other packages):
+I suggest to install the following (each will install the newest but
+compatible version; also the minimum set of needed packages):
+$ conda install numpy
+$ conda install pandas
+$ conda install scipy
+$ conda install plotly
+$ conda install seaborn
+$ conda install dash
+$ conda install yaml
+
+To list the packages (and their versions) installed in the corresponding env:
+$ conda list
+
+If a package cannot be installed by conda install, then install it
+(within an active conda env!) by pip; this will ensure that versions of
+all packages are compatible.
+
+Before installing a new package, and additionally from time to time (say,
+twice a month) update all packages:
+$ conda update --all
+
+
+PyCharm -------------------------------------------------------------------
+
+The easiest way to access and update pyCharm env is through the JetBrains toolbox.
+If you don't have, then install from:
+https://www.jetbrains.com/lp/toolbox/
+
+After installing the toolbox install:
+PyCharm community edition
+IntelliJ IDEA community edition
+
+To run PyCharm it is enough to click on its icon displayed in the Toolbox.
+
+Each pyCharm project should be run in a dedicated directory (folder), preferably
+under the same home_dir of the gitHub directory. The project should have a dedicated
+configuration, which defines the python interpreter/env and the project home.
+
+To create a new project:
+- goto Pycharm | File | New project...
+- define a (unique) project name, eg: xtest2  
+  Note: this will create a sub-dir under the location displayed below (can be changed)
+- select interpreter type: custom env
+- select: existing
+- select type: conda
+- path to conda should be displayed correctly (e.g., /Users/marek/anaconda3/bin/conda )
+- select environment from the list (e.g., pyo11)
+- review and click: Create
+
+If your conda env. is not on the list,  then it needs to be added
+To add py-interpreter from a conda env to the selected project
+- go (within existing project) to
+	pycharm/preferences/project/project interpreter
+- click "the wheel" (small icon right to the list of Python interprets)
+- select Add...
+- select Conda Environemnt  (left side of the new panel)
+- select: Existing environment
+- in the list find the location of the pyo11, e.g.:
+	~/anaconda3/envs/pyo11/bin/python3.10
+- wait until the list of packages will be complete (Last version displayed)
+- click Apply
+- click OK
+
+After the project will be created review the project config (assessable from
+the top of the project menu. The default config is called main, click on its choice
+list and select: Edit config. Here it is good to change "main" to an
+informative name (e.g., test). Review the setup, After modifying/checking
+check the box "Store as project file", click Apply, and then OK.
